@@ -10,7 +10,7 @@ This is how users will access their repos.
 # Clone repo
 git clone https://github.com/FlyingGraysons/git-custom.git && cd git-custom
 # Configure filesystem
-sudo bash config.sh
+sudo bash setup.sh
 # Install node dependencies
 npm install
 # Run
