@@ -12,6 +12,16 @@ server.listen(port, function () {
 	console.log('Server listening at port %d', port);
 });
 
+// To get ip
+const publicIp = require('public-ip');
+
+var address
+
+publicIp.v4().then(ip => {
+    console.log('Public ip is: ' + ip);
+	address = ip;
+});
+
 // Routing
 app.use(express.static(__dirname + '/public'));
 
@@ -22,6 +32,26 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 function system(command) {
 	exec( command, puts);
 }
+
+// For checking if it exists
+var fs = require('fs');
+function checkFor(dirname) {
+	try {
+	    // Query the entry
+	    stats = fs.lstatSync('/var/git/' +dirname);
+
+	    // Is it a directory?
+	    if (stats.isDirectory()) {
+	        return true;
+	    } else {
+	    	return false;
+	    }
+	}
+	catch (e) {
+	    return false;
+	}
+}
+
 
 // For timestamping logging
 function timeStamp() {
@@ -58,6 +88,18 @@ function log(string) {
 var jsesc = require('jsesc');
 
 app.post('/', function (req, res) {
-  res.send('Got a POST request, reponame is: ' + req.body.reponame);
-  log('New git repo: \"' + req.body.reponame + "\"");
+	var finalRemark;
+	if(/^[a-zA-Z0-9-_]*$/.test(req.body.reponame) == false) {
+		res.send('Your search string contains illegal characters.');
+		finalRemark = "Failed: Illegal characters"
+	} else if (checkFor(req.body.reponame + '.git')) {
+		res.send('That Repo name is already used.')
+		finalRemark = "Failed: Repo exists";
+	} else {
+		res.send('Set remote to \"git@' + address + ':/var/git/' + req.body.reponame + '.git\"');
+		finalRemark = "Success"
+		// system('cd /var/git/ && mkdir ' + req.body.reponame + '.git && cd ' + req.body.reponame + '.git && git init --bare');
+	}
+	log('New git repo: \"' + req.body.reponame + ".git\" " + finalRemark);
+
 });

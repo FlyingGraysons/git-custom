@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "3.4.8",
-    "jsesc": "^1.0.0"
+    "jsesc": "^1.0.0",
+    "public-ip": "^2.0.1"
   }
 }
