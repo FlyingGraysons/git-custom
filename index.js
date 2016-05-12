@@ -26,9 +26,8 @@ publicIp.v4().then(ip => {
 app.use(express.static(__dirname + '/public'));
 
 // Running system commands
-var sys = require('util')
 var exec = require('child_process').exec;
-function puts(error, stdout, stderr) { sys.puts(stdout) }
+function puts(error, stdout, stderr) { console.log(stdout) }
 function system(command) {
 	exec( command, puts);
 }
@@ -98,7 +97,7 @@ app.post('/', function (req, res) {
 	} else {
 		res.send('Set remote to \"git@' + address + ':/var/git/' + req.body.reponame + '.git\"');
 		finalRemark = "Success"
-		// system('cd /var/git/ && mkdir ' + req.body.reponame + '.git && cd ' + req.body.reponame + '.git && git init --bare');
+		system('cd /var/git/ && mkdir ' + req.body.reponame + '.git && cd ' + req.body.reponame + '.git && git init --bare');
 	}
 	log('New git repo: \"' + req.body.reponame + ".git\" " + finalRemark);
 
