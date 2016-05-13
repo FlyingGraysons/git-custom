@@ -9,10 +9,17 @@ The setup script will add a user account __git__ (if it doesnt exist already) wh
 # Clone repo
 git clone https://github.com/FlyingGraysons/git-custom.git && cd git-custom
 # Configure filesystem
-sudo bash setup.sh # Made for linux systems in mind
+sudo bash setup.sh # Made with linux systems in mind
 # Install node dependencies
 npm install
 # Run
 node .
 ```
 The instructions to use the repos are all on the website that will be created.
+
+The default port is 3000, but this can be changed with an environment variable named `PORT` set to the new port number.
+```bash
+# For example, to use port 80
+export PORT=80
+node . # To run
+```
