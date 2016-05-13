@@ -6,6 +6,11 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+if [ ! -d "/home/git" ]; then
+	useradd git # add git user
+	passwd git # add git passwd
+fi
+
 mkdir -p /var/git
 chmod -R 777 /var/git
 
