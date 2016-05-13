@@ -95,7 +95,7 @@ app.post('/', function (req, res) {
 		res.send('That Repo name is already used.')
 		finalRemark = "Failed: Repo exists";
 	} else {
-		res.send('Set remote to \"git@' + address + ':/var/git/' + req.body.reponame + '.git\"');
+		res.send('Run command \"git remote add origin git@' + address + ':/var/git/' + req.body.reponame + '.git\"');
 		finalRemark = "Success"
 		system('cd /var/git/ && mkdir ' + req.body.reponame + '.git && cd ' + req.body.reponame + '.git && git init --bare');
 	}
