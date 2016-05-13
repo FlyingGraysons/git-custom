@@ -23,3 +23,5 @@ The default port is 3000, but this can be changed with an environment variable n
 export PORT=80
 node . # To run
 ```
+
+Follow these instructions on your local (client) machine to cache the server password: https://help.github.com/articles/caching-your-github-password-in-git
