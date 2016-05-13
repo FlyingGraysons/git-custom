@@ -51,6 +51,12 @@ function checkFor(dirname) {
 	}
 }
 
+// Check if setup correctly
+if( !checkFor('') ) {
+	console.log("Not correctly setup, try running 'sudo ./setup.sh'")
+	process.exit(1)
+}
+
 
 // For timestamping logging
 function timeStamp() {
